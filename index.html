@@ -3,652 +3,1342 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>eucorredor — Sua próxima corrida está aqui</title>
-  <meta name="description" content="Todos os eventos de corrida do RS em um só lugar. Sem garimpar em sites, grupos e Instagram." />
+  <title>eucorredor — O hub de corrida do RS</title>
+  <meta name="description" content="Encontre eventos de corrida no RS, registre seus treinos e conecte-se com a comunidade gaúcha de corredores." />
 
-  <!-- META PIXEL: cole aqui o código do Meta Pixel -->
+  <!-- Meta Pixel: cole o código aqui -->
+  <!-- GA4: cole o código aqui -->
+  <!-- Google Ads: cole o código aqui -->
 
-  <!-- GOOGLE ANALYTICS: cole aqui o código do GA4 -->
-
-  <!-- GOOGLE ADS: cole aqui o código de conversão do Google Ads -->
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --red: #e11d48;
-      --dark: #080810;
-      --card: #0d0d18;
-      --border: #161625;
-      --text: #f0f0f0;
-      --muted: #4a4a6a;
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    html { scroll-behavior: smooth; }
+    :root {
+      --bg: #030305;
+      --bg-soft: #09090d;
+      --card: rgba(255, 255, 255, 0.055);
+      --card-strong: rgba(255, 255, 255, 0.09);
+      --line: rgba(255, 255, 255, 0.12);
+      --line-strong: rgba(255, 255, 255, 0.22);
+      --text: #f7f7f8;
+      --muted: #a4a4ad;
+      --muted-2: #70707c;
+      --red: #ff2638;
+      --red-dark: #b20e1c;
+      --red-soft: rgba(255, 38, 56, 0.16);
+      --white-soft: rgba(255, 255, 255, 0.72);
+      --radius: 28px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
-      background: var(--dark);
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 70% 5%, rgba(255, 38, 56, 0.26), transparent 34%),
+        radial-gradient(circle at 5% 30%, rgba(255, 38, 56, 0.10), transparent 30%),
+        linear-gradient(180deg, #030305 0%, #07070b 48%, #030305 100%);
       color: var(--text);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
       overflow-x: hidden;
     }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 20px 6%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(8,8,16,0.9);
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .accent {
+      color: var(--red);
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(3, 3, 5, 0.74);
+      border-bottom: 1px solid var(--line);
       backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
     }
 
-    .logo {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 700;
-      font-size: 18px;
-      color: #fff;
-      text-decoration: none;
-      letter-spacing: -0.3px;
-    }
-
-    .logo span { color: var(--red); }
-
-    .nav-cta {
-      background: #fff;
-      color: #080810;
-      border: none;
-      border-radius: 6px;
-      padding: 10px 24px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      text-decoration: none;
-      letter-spacing: 0.3px;
-      transition: opacity 0.2s;
-    }
-
-    .nav-cta:hover { opacity: 0.85; }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    .nav-inner {
+      height: 78px;
+      display: flex;
       align-items: center;
-      padding: 100px 6% 60px;
-      gap: 60px;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      font-size: 22px;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--red);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 34px rgba(255, 38, 56, 0.48);
       position: relative;
       overflow: hidden;
     }
 
-    @media (max-width: 768px) {
-      .hero { grid-template-columns: 1fr; padding-top: 120px; }
-      .hero-image { display: none; }
+    .brand-mark::before,
+    .brand-mark::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 8px;
+      background: #030305;
+      border-radius: 999px;
+      left: 5px;
+      transform: rotate(-18deg);
     }
 
-    .hero-content { position: relative; z-index: 2; }
+    .brand-mark::before { top: 10px; }
+    .brand-mark::after { bottom: 9px; }
 
-    .eyebrow {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      color: var(--red);
-      text-transform: uppercase;
-      margin-bottom: 20px;
-      opacity: 0;
-      animation: fadeUp 0.5s 0.1s ease forwards;
-    }
-
-    .hero h1 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(64px, 8vw, 110px);
-      font-weight: 900;
-      line-height: 0.93;
-      color: #fff;
-      text-transform: uppercase;
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: fadeUp 0.5s 0.2s ease forwards;
-    }
-
-    .hero h1 em {
-      font-style: normal;
+    .brand span span {
       color: var(--red);
     }
 
-    .hero p {
-      font-size: 17px;
-      color: #666;
-      line-height: 1.65;
-      max-width: 420px;
-      margin-bottom: 40px;
-      opacity: 0;
-      animation: fadeUp 0.5s 0.3s ease forwards;
-    }
-
-    .hero-ctas {
+    .nav-links {
       display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.5s 0.4s ease forwards;
+      align-items: center;
+      gap: 34px;
+      color: var(--white-soft);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 24px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 0.18s ease, opacity 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
     }
 
     .btn-primary {
       background: var(--red);
       color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 15px 32px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      text-decoration: none;
-      letter-spacing: 0.5px;
-      transition: opacity 0.2s, transform 0.15s;
-      display: inline-block;
+      box-shadow: 0 18px 42px rgba(255, 38, 56, 0.22);
     }
 
-    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
-
-    .btn-ghost {
-      background: none;
-      color: #555;
-      border: 1px solid #1e1e32;
-      border-radius: 6px;
-      padding: 15px 32px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      text-decoration: none;
-      transition: border-color 0.2s, color 0.2s;
-      display: inline-block;
+    .btn-secondary {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--line-strong);
     }
 
-    .btn-ghost:hover { border-color: #333; color: #aaa; }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
 
-    /* ── HERO IMAGE ── */
-    .hero-image {
+    .hero {
       position: relative;
-      height: 620px;
-      opacity: 0;
-      animation: fadeIn 0.8s 0.3s ease forwards;
-    }
-
-    .hero-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 4px;
-      filter: brightness(0.7) contrast(1.1);
-    }
-
-    .hero-image::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(8,8,16,0.5) 0%, transparent 60%);
-      border-radius: 4px;
-    }
-
-    .hero-tag {
-      position: absolute;
-      bottom: 24px;
-      left: 24px;
-      background: rgba(8,8,16,0.88);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 14px 18px;
-      z-index: 2;
-    }
-
-    .hero-tag p { font-size: 12px; color: #555; margin-bottom: 3px; }
-    .hero-tag strong { font-size: 15px; font-weight: 700; }
-
-    /* ── TICKER ── */
-    .ticker {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 14px 0;
+      padding: 84px 0 58px;
       overflow: hidden;
-      white-space: nowrap;
     }
 
-    .ticker-inner {
-      display: inline-block;
-      animation: ticker 20s linear infinite;
-    }
-
-    .ticker-item {
-      display: inline-block;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 0 32px;
-    }
-
-    .ticker-item span { color: var(--red); margin-right: 32px; }
-
-    @keyframes ticker {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    /* ── PROBLEM SECTION ── */
-    .problem {
-      padding: 120px 6%;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .problem-grid {
+    .hero-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 56px;
       align-items: center;
     }
 
-    @media (max-width: 768px) {
-      .problem-grid { grid-template-columns: 1fr; gap: 40px; }
-    }
-
-    .label {
-      font-size: 11px;
+    .pill {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--white-soft);
+      background: rgba(255, 255, 255, 0.035);
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 3px;
-      color: var(--red);
-      text-transform: uppercase;
-      margin-bottom: 18px;
+      margin-bottom: 22px;
     }
 
-    .section-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(40px, 5vw, 64px);
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: 0.95;
-      margin-bottom: 20px;
-    }
-
-    .section-title em {
-      font-style: normal;
-      color: var(--red);
-    }
-
-    .section-body {
-      font-size: 16px;
-      color: #555;
-      line-height: 1.7;
-    }
-
-    .pain-list {
-      list-style: none;
-      margin-top: 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .pain-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      font-size: 15px;
-      color: #555;
-      line-height: 1.5;
-    }
-
-    .pain-list li::before {
-      content: '';
-      width: 18px;
-      height: 18px;
+    .pill-dot {
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: rgba(225,29,72,0.15);
-      border: 1px solid rgba(225,29,72,0.3);
-      flex-shrink: 0;
+      background: var(--red);
+      box-shadow: 0 0 18px rgba(255, 38, 56, 0.9);
+    }
+
+    h1, h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
+    }
+
+    h1 {
+      font-size: clamp(72px, 8.6vw, 128px);
+      line-height: 0.84;
+      font-weight: 900;
+      max-width: 620px;
+      text-wrap: balance;
+    }
+
+    .hero-copy {
+      max-width: 540px;
+      margin-top: 26px;
+      color: var(--white-soft);
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .store-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    .store-badge {
+      min-width: 146px;
+      height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.42);
+      font-size: 10px;
+      line-height: 1.05;
+    }
+
+    .store-badge strong {
+      display: block;
+      font-size: 15px;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-visual {
+      min-height: 610px;
+      position: relative;
+    }
+
+    .runner {
+      position: absolute;
+      left: 3%;
+      bottom: 6%;
+      width: min(330px, 43vw);
+      z-index: 4;
+      filter: drop-shadow(0 28px 50px rgba(0, 0, 0, 0.65));
+    }
+
+    .runner-card {
+      width: 100%;
+      aspect-ratio: 0.72;
+      border-radius: 46% 46% 10% 10%;
+      background:
+        linear-gradient(180deg, rgba(255, 38, 56, 0.02), rgba(255, 38, 56, 0.24)),
+        url('https://images.unsplash.com/photo-1502904550040-7534597429ae?w=800&q=85') center/cover;
+      filter: saturate(0.92) contrast(1.1) brightness(0.78);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
+
+    .red-orb {
+      position: absolute;
+      width: 410px;
+      height: 410px;
+      border-radius: 50%;
+      top: 20px;
+      left: 160px;
+      background:
+        radial-gradient(circle at 35% 35%, #ff4454, #c41222 52%, rgba(95, 0, 9, 0.35) 74%, transparent 75%);
+      opacity: 0.9;
+      filter: blur(0.2px);
+      z-index: 1;
+    }
+
+    .phone-wrap {
+      position: absolute;
+      right: 0;
+      top: 30px;
+      width: min(330px, 42vw);
+      z-index: 5;
+    }
+
+    .phone-wrap.second {
+      right: 185px;
+      top: 100px;
+      transform: rotate(-5deg) scale(0.94);
+      z-index: 6;
+    }
+
+    .phone {
+      width: 100%;
+      aspect-ratio: 0.49;
+      border-radius: 42px;
+      padding: 13px;
+      background: linear-gradient(145deg, #292935, #07070a 46%, #2b2b35);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      box-shadow: 0 38px 90px rgba(0, 0, 0, 0.74), 0 0 0 8px rgba(255, 255, 255, 0.03);
+    }
+
+    .phone-screen {
+      height: 100%;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 70% 10%, rgba(255, 38, 56, 0.22), transparent 34%),
+        linear-gradient(180deg, #111119, #050507);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 22px 18px;
+      position: relative;
+    }
+
+    .status {
+      display: flex;
+      justify-content: space-between;
+      color: #fff;
+      font-size: 11px;
+      opacity: 0.9;
+      margin-bottom: 24px;
+    }
+
+    .hello {
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .metric-ring {
+      margin: 22px auto;
+      width: 148px;
+      height: 148px;
+      border-radius: 50%;
+      background:
+        conic-gradient(var(--red) 0 72%, rgba(255, 255, 255, 0.1) 72% 100%);
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .metric-ring::before {
+      content: '';
+      width: 116px;
+      height: 116px;
+      border-radius: 50%;
+      background: #0a0a10;
+      position: absolute;
+    }
+
+    .metric-ring div {
+      position: relative;
+      text-align: center;
+    }
+
+    .metric-ring strong {
+      display: block;
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: -0.08em;
+    }
+
+    .metric-ring span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 18px 0;
+    }
+
+    .mini-card {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.045);
+      border-radius: 14px;
+      padding: 10px 8px;
+    }
+
+    .mini-card strong {
+      display: block;
+      font-size: 15px;
+    }
+
+    .mini-card span {
+      display: block;
+      color: var(--muted-2);
+      font-size: 9px;
       margin-top: 2px;
     }
 
-    .problem-image {
+    .event-card {
+      background: rgba(255, 255, 255, 0.075);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 12px;
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-top: 14px;
+    }
+
+    .event-thumb {
+      height: 46px;
+      border-radius: 13px;
+      background: url('https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=300&q=80') center/cover;
+    }
+
+    .event-card h3 {
+      font-size: 12px;
+      margin-bottom: 3px;
+    }
+
+    .event-card p {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .phone-tabs {
+      display: flex;
+      gap: 7px;
+      margin: 12px 0 16px;
+    }
+
+    .phone-tab {
+      padding: 6px 9px;
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.055);
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .phone-tab.active {
+      color: #fff;
+      background: var(--red);
+    }
+
+    .ranking-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .ranking-item {
+      display: grid;
+      grid-template-columns: 26px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 9px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      font-size: 11px;
+    }
+
+    .avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--red), #ffb0b7);
+    }
+
+    .stats-strip {
+      margin-top: 38px;
+      border: 1px solid var(--line-strong);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.035);
+      backdrop-filter: blur(16px);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      overflow: hidden;
+    }
+
+    .stat {
+      padding: 28px 22px;
+      text-align: center;
+      border-right: 1px solid var(--line);
+    }
+
+    .stat:last-child {
+      border-right: 0;
+    }
+
+    .stat-icon {
+      color: var(--red);
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      letter-spacing: -0.05em;
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    section {
+      padding: 110px 0;
       position: relative;
-      height: 500px;
     }
 
-    .problem-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 4px;
-      filter: brightness(0.65) contrast(1.1) saturate(0.8);
+    .section-kicker {
+      color: var(--red);
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      margin-bottom: 15px;
     }
 
-    /* ── FEATURES ── */
-    .features {
-      padding: 0 6% 120px;
-      max-width: 1100px;
-      margin: 0 auto;
+    .section-title {
+      font-size: clamp(54px, 6.2vw, 92px);
+      line-height: 0.88;
+      max-width: 700px;
+      margin-bottom: 22px;
     }
 
-    .features-header {
-      margin-bottom: 60px;
+    .section-text {
+      color: var(--white-soft);
+      line-height: 1.7;
+      font-size: 17px;
+      max-width: 530px;
+    }
+
+    .features-section {
+      background:
+        linear-gradient(180deg, transparent, rgba(255, 38, 56, 0.045), transparent),
+        radial-gradient(circle at 10% 65%, rgba(255, 105, 45, 0.18), transparent 28%);
     }
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: 58px;
+      align-items: stretch;
     }
 
-    @media (max-width: 768px) {
-      .features-grid { grid-template-columns: 1fr; }
+    .feature-intro {
+      min-height: 520px;
+      border-radius: var(--radius);
+      padding: 38px;
+      background:
+        linear-gradient(180deg, rgba(3, 3, 5, 0.2), rgba(3, 3, 5, 0.94)),
+        url('https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=900&q=85') center/cover;
+      border: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .feature-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
     }
 
     .feature-card {
+      padding: 28px;
+      min-height: 166px;
+      border-radius: 22px;
       background: var(--card);
-      padding: 36px 30px;
-      transition: background 0.2s;
+      border: 1px solid var(--line);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
     }
 
-    .feature-card:hover { background: #111120; }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 38, 56, 0.36);
+      background: rgba(255, 255, 255, 0.075);
+    }
 
-    .feature-num {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
+    .feature-card .icon {
+      font-size: 28px;
       color: var(--red);
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
-    .feature-title {
-      font-weight: 700;
-      font-size: 17px;
-      margin-bottom: 10px;
-      line-height: 1.3;
+    .feature-card h3 {
+      font-size: 20px;
+      letter-spacing: -0.04em;
+      margin-bottom: 9px;
     }
 
-    .feature-desc {
+    .feature-card p {
+      color: var(--muted);
+      line-height: 1.6;
       font-size: 14px;
-      color: #555;
-      line-height: 1.65;
     }
 
-    /* ── FULL IMAGE SECTION ── */
-    .full-image {
-      width: 100%;
-      height: 500px;
+    .app-section {
+      padding-top: 40px;
+      overflow: hidden;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: 0.78fr 1.22fr;
+      align-items: center;
+      gap: 54px;
+    }
+
+    .check-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 30px;
+      color: var(--white-soft);
+      font-weight: 600;
+    }
+
+    .check-list li {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .check {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--red);
+      font-size: 13px;
+      flex: 0 0 auto;
+    }
+
+    .screens-stack {
+      min-height: 560px;
+      position: relative;
+    }
+
+    .screens-stack .phone-wrap {
+      position: absolute;
+      width: 265px;
+    }
+
+    .screens-stack .phone-wrap.a {
+      left: 0;
+      top: 100px;
+      transform: rotate(-7deg) scale(0.94);
+    }
+
+    .screens-stack .phone-wrap.b {
+      left: 210px;
+      top: 0;
+      transform: scale(1.06);
+      z-index: 4;
+    }
+
+    .screens-stack .phone-wrap.c {
+      right: 10px;
+      top: 92px;
+      transform: rotate(7deg) scale(0.94);
+    }
+
+    .map-box {
+      height: 190px;
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(255, 38, 56, 0.34), transparent),
+        url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=600&q=80') center/cover;
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      margin: 20px 0;
       position: relative;
       overflow: hidden;
     }
 
-    .full-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.45) contrast(1.1) saturate(0.7);
-    }
-
-    .full-image-overlay {
+    .map-box::before {
+      content: '';
       position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
+      inset: 32px 32px 38px 44px;
+      border: 4px solid var(--red);
+      border-left-color: transparent;
+      border-radius: 48% 34% 42% 32%;
+      filter: drop-shadow(0 0 12px rgba(255, 38, 56, 0.55));
+    }
+
+    .run-data {
+      display: grid;
+      place-items: center;
       text-align: center;
-      padding: 40px;
+      margin-top: 20px;
     }
 
-    .full-image-overlay h2 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(48px, 8vw, 100px);
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: 0.93;
-      color: #fff;
-      margin-bottom: 24px;
+    .run-data strong {
+      font-size: 48px;
+      letter-spacing: -0.08em;
+      line-height: 1;
     }
 
-    .full-image-overlay h2 em {
-      font-style: normal;
-      color: var(--red);
-    }
-
-    /* ── CTA SECTION ── */
-    .cta-section {
-      padding: 120px 6%;
-      max-width: 900px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .cta-section h2 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(48px, 7vw, 88px);
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: 0.93;
-      margin-bottom: 20px;
-    }
-
-    .cta-section h2 em {
-      font-style: normal;
-      color: var(--red);
-    }
-
-    .cta-section p {
-      font-size: 16px;
-      color: #555;
-      margin-bottom: 40px;
-      line-height: 1.6;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 36px 6%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    footer p { font-size: 13px; color: var(--muted); }
-
-    .footer-links { display: flex; gap: 28px; }
-
-    .footer-links a {
-      font-size: 13px;
+    .run-data span {
       color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
+      font-size: 12px;
     }
 
-    .footer-links a:hover { color: #aaa; }
-
-    @media (max-width: 600px) {
-      footer { flex-direction: column; text-align: center; }
-      .footer-links { justify-content: center; }
+    .community-section {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
     }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .community-grid {
+      display: grid;
+      grid-template-columns: 0.65fr 1.35fr;
+      gap: 52px;
+      align-items: center;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .photo {
+      min-height: 170px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      background-position: center;
+      background-size: cover;
+      filter: saturate(0.88) contrast(1.04) brightness(0.84);
+    }
+
+    .photo.tall {
+      grid-row: span 2;
+      min-height: 354px;
+    }
+
+    .photo.one { background-image: url('https://images.unsplash.com/photo-1553969546-6f7388a7e07c?w=700&q=80'); }
+    .photo.two { background-image: url('https://images.unsplash.com/photo-1517649763962-0c623066013b?w=700&q=80'); }
+    .photo.three { background-image: url('https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=700&q=80'); }
+    .photo.four { background-image: url('https://images.unsplash.com/photo-1530143584546-02191bc84eb5?w=700&q=80'); }
+    .photo.five { background-image: url('https://images.unsplash.com/photo-1524646349956-1590eacfa324?w=700&q=80'); }
+
+    .final-cta {
+      padding: 96px 0;
+      background:
+        radial-gradient(circle at 58% 52%, rgba(255, 38, 56, 0.32), transparent 26%),
+        linear-gradient(135deg, #08080c, #2b0207 52%, #060608);
+      overflow: hidden;
+    }
+
+    .final-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .final-visual {
+      min-height: 340px;
+      position: relative;
+    }
+
+    .final-logo {
+      position: absolute;
+      left: 7%;
+      top: 56px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: var(--red);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 25px 80px rgba(255, 38, 56, 0.35);
+    }
+
+    .final-logo::before,
+    .final-logo::after {
+      content: '';
+      position: absolute;
+      width: 150px;
+      height: 38px;
+      background: #100104;
+      border-radius: 999px;
+      transform: rotate(-18deg);
+    }
+
+    .final-logo::before { top: 68px; }
+    .final-logo::after { bottom: 66px; }
+
+    .final-phone {
+      position: absolute;
+      right: 6%;
+      top: -10px;
+      width: 245px;
+      transform: rotate(-8deg);
+    }
+
+    .final-phone .phone-screen {
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+
+    .final-phone h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 54px;
+      line-height: 0.9;
+      text-transform: uppercase;
+      letter-spacing: -0.05em;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255, 38, 56, 0.42);
+      background: #030305;
+      padding: 32px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 13px;
+      flex-wrap: wrap;
+    }
+
+    .socials {
+      display: flex;
+      gap: 10px;
+    }
+
+    .socials a {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line);
+      color: #fff;
+      font-weight: 800;
+    }
+
+    @media (max-width: 1020px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-grid,
+      .features-grid,
+      .app-grid,
+      .community-grid,
+      .final-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 560px;
+      }
+
+      .phone-wrap {
+        right: 5%;
+      }
+
+      .phone-wrap.second {
+        left: 6%;
+        right: auto;
+      }
+
+      .runner {
+        left: 24%;
+      }
+
+      .screens-stack {
+        min-height: 640px;
+      }
+
+      .screens-stack .phone-wrap.a { left: 2%; }
+      .screens-stack .phone-wrap.b { left: 50%; transform: translateX(-50%) scale(1.06); }
+      .screens-stack .phone-wrap.c { right: 2%; }
+    }
+
+    @media (max-width: 760px) {
+      .container {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .nav-inner {
+        height: 68px;
+      }
+
+      .brand {
+        font-size: 19px;
+      }
+
+      .nav .btn {
+        min-height: 42px;
+        padding: 0 16px;
+        font-size: 12px;
+      }
+
+      .hero {
+        padding-top: 54px;
+      }
+
+      h1 {
+        font-size: clamp(64px, 20vw, 86px);
+      }
+
+      .hero-copy {
+        font-size: 16px;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .hero-visual {
+        min-height: 520px;
+        margin-top: 22px;
+      }
+
+      .red-orb {
+        width: 310px;
+        height: 310px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .phone-wrap {
+        width: 220px;
+        right: 0;
+        top: 70px;
+      }
+
+      .phone-wrap.second {
+        width: 190px;
+        left: 0;
+        top: 138px;
+      }
+
+      .runner {
+        width: 210px;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+      }
+
+      .stats-strip {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .stat:nth-child(2) {
+        border-right: 0;
+      }
+
+      .stat:nth-child(1),
+      .stat:nth-child(2) {
+        border-bottom: 1px solid var(--line);
+      }
+
+      section {
+        padding: 78px 0;
+      }
+
+      .section-title {
+        font-size: clamp(46px, 16vw, 68px);
+      }
+
+      .feature-intro {
+        min-height: 420px;
+        padding: 26px;
+      }
+
+      .feature-cards,
+      .photo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .photo.tall,
+      .photo {
+        min-height: 210px;
+      }
+
+      .screens-stack {
+        min-height: 680px;
+        overflow: hidden;
+      }
+
+      .screens-stack .phone-wrap {
+        width: 205px;
+      }
+
+      .screens-stack .phone-wrap.a {
+        left: -58px;
+        top: 118px;
+      }
+
+      .screens-stack .phone-wrap.b {
+        left: 50%;
+        top: 0;
+      }
+
+      .screens-stack .phone-wrap.c {
+        right: -60px;
+        top: 130px;
+      }
+
+      .final-visual {
+        min-height: 440px;
+      }
+
+      .final-logo {
+        width: 170px;
+        height: 170px;
+        left: 0;
+      }
+
+      .final-logo::before,
+      .final-logo::after {
+        width: 112px;
+        height: 30px;
+      }
+
+      .final-logo::before { top: 52px; }
+      .final-logo::after { bottom: 52px; }
+
+      .final-phone {
+        width: 215px;
+        right: 0;
+        top: 90px;
+      }
     }
   </style>
 </head>
 <body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#topo" class="brand" aria-label="eucorredor">
+        <span class="brand-mark"></span>
+        <span>eu<span>corredor</span></span>
+      </a>
 
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="logo">eu<span>corredor</span></a>
-    <a href="https://eucorredor.com.br"
-       class="nav-cta"
-       onclick="/* META PIXEL: fbq('track', 'Lead'); GOOGLE: gtag('event', 'click_cta_nav'); */">
-      Criar conta grátis
-    </a>
-  </nav>
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="#recursos">Recursos</a>
+        <a href="#app">App</a>
+        <a href="#comunidade">Comunidade</a>
+        <a href="#entrar">Começar</a>
+      </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-content">
-      <p class="eyebrow">Rio Grande do Sul</p>
-      <h1>Sua próxima<br/>corrida<br/><em>está aqui</em></h1>
-      <p>Todos os eventos de corrida do RS em um só lugar. Sem garimpar em sites, grupos e Instagram.</p>
-      <div class="hero-ctas">
-        <a href="https://eucorredor.com.br"
-           class="btn-primary"
-           onclick="/* META PIXEL: fbq('track', 'Lead'); GOOGLE: gtag('event', 'click_cta_hero'); */">
-          Criar conta grátis
-        </a>
-        <a href="#o-problema" class="btn-ghost">Saiba mais</a>
-      </div>
+      <a class="btn btn-primary" href="https://eucorredor.com.br" onclick="/* fbq('track', 'Lead'); gtag('event', 'click_cta_nav'); */">Criar conta grátis</a>
     </div>
+  </header>
 
-    <div class="hero-image">
-      <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=900&q=80" alt="Corredor em movimento" />
-      <div class="hero-tag">
-        <p>Próximo evento no RS</p>
-        <strong>Maratona de Porto Alegre — 15 Jun</strong>
-      </div>
-    </div>
-  </section>
+  <main id="topo">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="pill"><span class="pill-dot"></span> Feito para corredores do Rio Grande do Sul</div>
+          <h1>O hub de corrida do <span class="accent">RS.</span></h1>
+          <p class="hero-copy">Encontre eventos, registre treinos, acompanhe sua evolução e conecte-se com uma comunidade que corre junto com você.</p>
 
-  <!-- TICKER -->
-  <div class="ticker">
-    <div class="ticker-inner">
-      <span class="ticker-item"><span>/</span> Eventos de corrida</span>
-      <span class="ticker-item"><span>/</span> Hub de performance</span>
-      <span class="ticker-item"><span>/</span> Comunidade gaúcha</span>
-      <span class="ticker-item"><span>/</span> GPS integrado</span>
-      <span class="ticker-item"><span>/</span> Sistema de níveis</span>
-      <span class="ticker-item"><span>/</span> Feito no RS</span>
-      <span class="ticker-item"><span>/</span> Eventos de corrida</span>
-      <span class="ticker-item"><span>/</span> Hub de performance</span>
-      <span class="ticker-item"><span>/</span> Comunidade gaúcha</span>
-      <span class="ticker-item"><span>/</span> GPS integrado</span>
-      <span class="ticker-item"><span>/</span> Sistema de níveis</span>
-      <span class="ticker-item"><span>/</span> Feito no RS</span>
-    </div>
-  </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://eucorredor.com.br" onclick="/* fbq('track', 'Lead'); gtag('event', 'click_cta_hero'); */">Criar conta grátis</a>
+            <a class="btn btn-secondary" href="#recursos">Ver recursos</a>
+          </div>
 
-  <!-- PROBLEM -->
-  <section class="problem" id="o-problema">
-    <div class="problem-grid">
-      <div>
-        <p class="label">O problema</p>
-        <h2 class="section-title">Cansado de<br/>garimpar<br/><em>eventos?</em></h2>
-        <p class="section-body">O corredor gaúcho perde tempo todo mês tentando descobrir quais corridas estão acontecendo na região.</p>
-        <ul class="pain-list">
-          <li>Sites de eventos desatualizados ou difíceis de navegar</li>
-          <li>Grupos de WhatsApp com informações espalhadas</li>
-          <li>Instagram de organizadores que nem sempre posta a tempo</li>
-          <li>Datas, distâncias e locais em lugares diferentes</li>
-        </ul>
-      </div>
-      <div class="problem-image">
-        <img src="https://images.unsplash.com/photo-1544899490-d4b7d3cf1a14?w=800&q=80" alt="Corredor" />
-      </div>
-    </div>
-  </section>
+          <div class="store-row" aria-label="Disponibilidade do app">
+            <div class="store-badge">▶ <span>Disponível no<br><strong>Google Play</strong></span></div>
+            <div class="store-badge"> <span>Disponível na<br><strong>App Store</strong></span></div>
+          </div>
+        </div>
 
-  <!-- FEATURES -->
-  <section class="features">
-    <div class="features-header">
-      <p class="label">A solução</p>
-      <h2 class="section-title">Tudo que você<br/>precisa em<br/><em>um lugar</em></h2>
-    </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="red-orb"></div>
 
-    <div class="features-grid">
-      <div class="feature-card">
-        <p class="feature-num">01</p>
-        <p class="feature-title">Eventos centralizados e atualizados</p>
-        <p class="feature-desc">Todas as corridas do RS em um só lugar. Datas, distâncias, locais e link direto para o site do evento.</p>
-      </div>
-      <div class="feature-card">
-        <p class="feature-num">02</p>
-        <p class="feature-title">Hub de performance</p>
-        <p class="feature-desc">Registre treinos com GPS, acompanhe pace, FC e calorias. Histórico completo da sua evolução como corredor.</p>
-      </div>
-      <div class="feature-card">
-        <p class="feature-num">03</p>
-        <p class="feature-title">Comunidade de corredores</p>
-        <p class="feature-desc">Conecte-se com corredores do RS, compartilhe treinos, siga atletas da sua região e evolua junto.</p>
-      </div>
-      <div class="feature-card">
-        <p class="feature-num">04</p>
-        <p class="feature-title">Notificações de novos eventos</p>
-        <p class="feature-desc">Receba alertas quando uma nova corrida for cadastrada na plataforma. Sem perder nenhum evento.</p>
-      </div>
-      <div class="feature-card">
-        <p class="feature-num">05</p>
-        <p class="feature-title">Sistema de níveis</p>
-        <p class="feature-desc">De Iniciante a Profissional — cada corrida registrada conta para sua progressão no app.</p>
-      </div>
-      <div class="feature-card">
-        <p class="feature-num">06</p>
-        <p class="feature-title">Stories de corrida</p>
-        <p class="feature-desc">Compartilhe momentos dos seus treinos e eventos com a comunidade em formato de stories.</p>
-      </div>
-    </div>
-  </section>
+          <div class="runner">
+            <div class="runner-card"></div>
+          </div>
 
-  <!-- FULL IMAGE -->
-  <div class="full-image">
-    <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1600&q=80" alt="Corrida de rua" />
-    <div class="full-image-overlay">
-      <h2>Feito para o<br/>corredor <em>gaúcho</em></h2>
-    </div>
-  </div>
+          <div class="phone-wrap second">
+            <div class="phone">
+              <div class="phone-screen">
+                <div class="status"><span>5:43</span><span>●●●</span></div>
+                <div class="hello">Eventos</div>
+                <p class="sub">Corridas próximas no RS</p>
+                <div class="phone-tabs">
+                  <span class="phone-tab active">Todos</span>
+                  <span class="phone-tab">5K</span>
+                  <span class="phone-tab">10K</span>
+                  <span class="phone-tab">21K</span>
+                </div>
+                <div class="ranking-list">
+                  <div class="event-card"><div class="event-thumb"></div><div><h3>Maratona de Porto Alegre</h3><p>Porto Alegre · inscrição aberta</p></div></div>
+                  <div class="event-card"><div class="event-thumb"></div><div><h3>Circuito dos Vales</h3><p>Lajeado · corrida de rua</p></div></div>
+                  <div class="event-card"><div class="event-thumb"></div><div><h3>Night Run</h3><p>Canoas · prova noturna</p></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-  <!-- CTA -->
-  <section class="cta-section">
-    <h2>Comece<br/><em>agora.</em><br/>É grátis.</h2>
-    <p>Crie sua conta e acesse todos os eventos de corrida do RS, o hub de performance e a comunidade gaúcha de corredores.</p>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-screen">
+                <div class="status"><span>5:43</span><span>●●●</span></div>
+                <div class="hello">Olá, corredor!</div>
+                <p class="sub">Sua semana em movimento</p>
+                <div class="metric-ring"><div><strong>42,7</strong><span>km na semana</span></div></div>
+                <div class="mini-grid">
+                  <div class="mini-card"><strong>5:21</strong><span>ritmo médio</span></div>
+                  <div class="mini-card"><strong>4h 32</strong><span>tempo total</span></div>
+                  <div class="mini-card"><strong>512</strong><span>calorias</span></div>
+                </div>
+                <div class="event-card"><div class="event-thumb"></div><div><h3>Próximo evento</h3><p>Maratona de Porto Alegre</p></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <a href="https://eucorredor.com.br"
-       class="btn-primary"
-       style="font-size: 15px; padding: 18px 48px;"
-       onclick="/* META PIXEL: fbq('track', 'Lead'); GOOGLE: gtag('event', 'click_cta_final'); */">
-      Criar conta grátis
-    </a>
-  </section>
+      <div class="container">
+        <div class="stats-strip" aria-label="Principais recursos do eucorredor">
+          <div class="stat"><div class="stat-icon">☑</div><strong>Eventos</strong><span>corridas reunidas</span></div>
+          <div class="stat"><div class="stat-icon">◉</div><strong>Treinos</strong><span>GPS e métricas</span></div>
+          <div class="stat"><div class="stat-icon">♚</div><strong>Níveis</strong><span>progressão no app</span></div>
+          <div class="stat"><div class="stat-icon">↗</div><strong>Comunidade</strong><span>corredores do RS</span></div>
+        </div>
+      </div>
+    </section>
 
-  <!-- FOOTER -->
+    <section class="features-section" id="recursos">
+      <div class="container features-grid">
+        <div class="feature-intro">
+          <p class="section-kicker">Recursos</p>
+          <h2 class="section-title">Tudo que o corredor precisa, <span class="accent">em um só lugar.</span></h2>
+          <p class="section-text">Do treino ao pódio. O eucorredor conecta você a experiências que vão além da corrida.</p>
+        </div>
+
+        <div class="feature-cards">
+          <article class="feature-card">
+            <div class="icon">▣</div>
+            <h3>Encontre eventos</h3>
+            <p>Veja provas, distâncias, locais e links de inscrição sem garimpar em vários canais diferentes.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">⌁</div>
+            <h3>Registre seus treinos</h3>
+            <p>Acompanhe distância, ritmo, tempo, calorias e evolução com histórico organizado.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">●</div>
+            <h3>Conecte-se</h3>
+            <p>Siga corredores, clubes e assessorias para acompanhar quem também corre no RS.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">♛</div>
+            <h3>Rankings e desafios</h3>
+            <p>Participe de rankings, compare resultados e transforme sua evolução em motivação.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">✦</div>
+            <h3>Conquistas</h3>
+            <p>Colecione badges, marque sua jornada e veja cada etapa do seu progresso.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">✉</div>
+            <h3>Comunidade ativa</h3>
+            <p>Compartilhe experiências, provas, treinos e dicas com quem vive a mesma rotina.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-section" id="app">
+      <div class="container app-grid">
+        <div>
+          <p class="section-kicker">Experiência completa</p>
+          <h2 class="section-title">Um app feito para acompanhar cada <span class="accent">passo.</span></h2>
+          <p class="section-text">O eucorredor junta calendário, treino, comunidade e performance em uma experiência simples para quem corre no Rio Grande do Sul.</p>
+
+          <ul class="check-list">
+            <li><span class="check">✓</span> Calendário completo de eventos</li>
+            <li><span class="check">✓</span> GPS e métricas em tempo real</li>
+            <li><span class="check">✓</span> Histórico de treinos e estatísticas</li>
+            <li><span class="check">✓</span> Integração com seus dispositivos</li>
+            <li><span class="check">✓</span> Notificações personalizadas</li>
+          </ul>
+        </div>
+
+        <div class="screens-stack" aria-hidden="true">
+          <div class="phone-wrap a">
+            <div class="phone">
+              <div class="phone-screen">
+                <div class="status"><span>06:01</span><span>●●●</span></div>
+                <div class="hello">Eventos</div>
+                <p class="sub">Próximas corridas</p>
+                <div class="event-card"><div class="event-thumb"></div><div><h3>Maratona POA</h3><p>Inscrições abertas</p></div></div>
+                <div class="event-card"><div class="event-thumb"></div><div><h3>Travessia dos Vales</h3><p>Prova de rua</p></div></div>
+                <div class="event-card"><div class="event-thumb"></div><div><h3>Desafio Serra Gaúcha</h3><p>Trail run</p></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="phone-wrap b">
+            <div class="phone">
+              <div class="phone-screen">
+                <div class="status"><span>06:41</span><span>●●●</span></div>
+                <div class="hello">Correr</div>
+                <div class="map-box"></div>
+                <div class="run-data"><strong>5,21</strong><span>quilômetros</span></div>
+                <div class="mini-grid">
+                  <div class="mini-card"><strong>5:20</strong><span>ritmo</span></div>
+                  <div class="mini-card"><strong>00:27</strong><span>duração</span></div>
+                  <div class="mini-card"><strong>512</strong><span>calorias</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="phone-wrap c">
+            <div class="phone">
+              <div class="phone-screen">
+                <div class="status"><span>06:43</span><span>●●●</span></div>
+                <div class="hello">Perfil</div>
+                <p class="sub">Sua jornada como corredor</p>
+                <div class="metric-ring"><div><strong>12</strong><span>nível atual</span></div></div>
+                <div class="ranking-list">
+                  <div class="ranking-item"><div class="avatar"></div><span>Badge 5K</span><strong>✓</strong></div>
+                  <div class="ranking-item"><div class="avatar"></div><span>Badge 10K</span><strong>✓</strong></div>
+                  <div class="ranking-item"><div class="avatar"></div><span>Badge 21K</span><strong>•</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="community-section" id="comunidade">
+      <div class="container community-grid">
+        <div>
+          <p class="section-kicker">Comunidade</p>
+          <h2 class="section-title">Mais que um app, uma <span class="accent">comunidade.</span></h2>
+          <p class="section-text">Juntos, somos mais fortes. Juntos, vamos mais longe.</p>
+        </div>
+
+        <div class="photo-grid" aria-hidden="true">
+          <div class="photo one tall"></div>
+          <div class="photo two"></div>
+          <div class="photo three"></div>
+          <div class="photo four"></div>
+          <div class="photo five"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta" id="entrar">
+      <div class="container final-grid">
+        <div>
+          <h2 class="section-title">Faça parte do movimento que conecta a <span class="accent">corrida no RS.</span></h2>
+          <p class="section-text">Crie sua conta e comece sua jornada no eucorredor.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://eucorredor.com.br" onclick="/* fbq('track', 'Lead'); gtag('event', 'click_cta_final'); */">Criar conta grátis</a>
+            <a class="btn btn-secondary" href="#topo">Voltar ao topo</a>
+          </div>
+        </div>
+
+        <div class="final-visual" aria-hidden="true">
+          <div class="final-logo"></div>
+          <div class="final-phone">
+            <div class="phone">
+              <div class="phone-screen">
+                <div>
+                  <div class="brand-mark" style="margin:0 auto 26px;"></div>
+                  <h3><span class="accent">Eu</span><br>corro.<br><span class="accent">Eu</span><br>corredor.</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
   <footer>
-    <p>© 2026 eucorredor</p>
-    <div class="footer-links">
-      <a href="https://eucorredor.com.br/termos">Termos de uso</a>
-      <a href="https://eucorredor.com.br/privacidade">Privacidade</a>
-      <a href="https://eucorredor.com.br">Entrar no app</a>
+    <div class="container footer-inner">
+      <p>eucorredor.com.br</p>
+      <div class="socials" aria-label="Redes sociais">
+        <a href="#" aria-label="Instagram">I</a>
+        <a href="#" aria-label="Facebook">F</a>
+        <a href="#" aria-label="YouTube">Y</a>
+      </div>
+      <p>© 2026 eucorredor. Todos os direitos reservados.</p>
     </div>
   </footer>
-
 </body>
 </html>
